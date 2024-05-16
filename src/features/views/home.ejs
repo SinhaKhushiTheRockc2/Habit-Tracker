@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <h1 class="mt-5">Habits To Keep In Track</h1>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center mt-3 mb-5">
+  <% habit.forEach(habit => { %>
+  <div class="col-md-8">
+    <div class='shadow-sm rounded mt-3 p-4 bg-white' style="box-shadow: 5px 5px 5px grey;">
+      <div>
+        <span class="card-header mt-2 rounded fw-bold" style="background-color: rgb(143, 151, 165);padding: 5px;">
+          <%= habit.name %>
+        </span>
+      </div>
+      <!-- Delete Habit -->
+      <div class='float-end shadow-sm me-2 justify-content-center' style="margin-top: -30px;">
+        <a href="/<%= habit._id %>" class='btn' id="button"><i class="fa-solid fa-trash" style="color: red;"></i></a>
+      </div>
+      <div class="row habit-days mt-3">
+        <% days.forEach(day => {
+          let found = false, status = '';
+          habit.statuses.find(function (item, index) {
+            if (item.date === day.date) {
+              found = true;
+              status = item.status;
+            }
+          });
+          %>
+        <div class="col">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  <div class="circular-progress">
+                    <div class="value-container">
+                      <%= day.day %> <br>
+                      <span><%= day.date.slice(-2) %></span>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="pb-3" style="text-align: center;">
+                  <a href="habitStatus/?id=<%= habit._id %>&date=<%= day.date %>">
+                    <% if (found && status === 'done') { %>
+                    <abbr title="Mark the habit as pending" style="font-size: 2rem; color: rgb(27, 244, 34)">
+                      <i class="fa-solid fa-circle-check"></i>
+                    </abbr>
+                    <% } else if (found && status === 'not-done') { %>
+                    <abbr title="Click to remove the mark" style="font-size: 2rem; color: rgb(244, 27, 27)">
+                      <i class="fa-solid fa-circle-xmark"></i>
+                    </abbr>
+                    <% } else { %>
+                    <abbr title="Mark the habit as Done!!" style="color:rgb(27, 204, 244);font-size: 2rem;">
+                      <span title="Mark the habit as done">
+                        <i class="fa-solid fa-circle-plus"></i>
+                      </span>
+                    </abbr>
+                    <% } %>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+</div>
