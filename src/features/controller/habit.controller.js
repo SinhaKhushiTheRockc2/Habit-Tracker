@@ -1,5 +1,4 @@
 // Import statement for necessary modules
-import HabitRepository from "../model/habit.repository.js";
 import HabitModel from "../model/habit.schema.js";
 
 //getting 7 days
